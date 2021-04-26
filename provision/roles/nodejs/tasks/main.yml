@@ -1,0 +1,16 @@
+---
+- name: Install the gpg key for 'Node.js'
+  apt_key:
+    url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+    state: present
+
+- name: Install the 'Node.js' repos
+  apt_repository:
+    repo: "deb https://deb.nodesource.com/{{ node_repo }} {{ ansible_lsb.codename }} main"
+    state: present
+    update_cache: yes
+
+- name: Installs 'Node.js' package
+  apt:
+    pkg: nodejs
+    state: present

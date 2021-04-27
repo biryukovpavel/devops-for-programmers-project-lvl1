@@ -2,7 +2,13 @@ version: '2.4'
 
 services:
   app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    image: devopsforprogrammersprojectlvl1
     command: ["nodos", "server", "-h", "0.0.0.0"]
     ports:
         - "8080:8080"
+    volumes:
+      - .:/usr/src/app
     restart: always

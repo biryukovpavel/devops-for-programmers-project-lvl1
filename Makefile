@@ -29,3 +29,12 @@ compose-logs:
 
 compose-bash:
 	docker-compose run app bash
+
+docker-build:
+	docker build -f Dockerfile.production -t biryukovpyu/devops-for-programmers-project-lvl1 .
+
+docker-push:
+	docker push biryukovpyu/devops-for-programmers-project-lvl1
+
+docker-start:
+	docker run -e NODOS_HOST=0.0.0.0 -p 8080:8080 biryukovpyu/devops-for-programmers-project-lvl1

@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches: 
+      - '**'
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+env:
+  APP_IMAGE_NAME: biryukovpyu/devops-for-programmers-project-lvl1
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build application
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.production
+          push: false
+          tags: ${{ env.APP_IMAGE_NAME }}:latest
+
+      - name: Run test
+        run: make compose-test
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      # - name: Push image
+      #   uses: docker/build-push-action@v2
+      #   with:
+      #     context: .
+      #     file: Dockerfile.production
+      #     push: true
+      #     tags: ${{ env.APP_IMAGE_NAME }}:latest

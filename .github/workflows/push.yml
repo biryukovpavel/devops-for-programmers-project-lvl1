@@ -36,6 +36,9 @@ jobs:
 
       - name: Run test
         run: make compose-test
+        env:
+            DOCKER_BUILDKIT: ${{ env.DOCKER_BUILDKIT }}
+            COMPOSE_DOCKER_CLI_BUILD: ${{ env.COMPOSE_DOCKER_CLI_BUILD }}
 
       - name: Login to DockerHub
         uses: docker/login-action@v1

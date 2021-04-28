@@ -7,8 +7,18 @@ services:
       dockerfile: ./Dockerfile
     image: devopsforprogrammersprojectlvl1
     command: ["nodos", "server", "-h", "0.0.0.0"]
-    ports:
-        - "8080:8080"
     volumes:
       - .:/usr/src/app
+    restart: always
+
+  caddy:
+    image: caddy:2.3.0-alpine
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    volumes:
+      - ./services/caddy/Caddyfile:/etc/caddy/Caddyfile
+    mem_limit: 512M
     restart: always

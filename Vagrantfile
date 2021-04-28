@@ -14,6 +14,16 @@ Vagrant.configure("2") do |config|
     guest_ip: "0.0.0.0",
     host_ip: "127.0.0.1"
 
+  config.vm.network "forwarded_port", guest: 80, host: 8000,
+    id: "port_caddy_http",
+    guest_ip: "0.0.0.0",
+    host_ip: "127.0.0.1"
+
+  config.vm.network "forwarded_port", guest: 443, host: 4430,
+    id: "port_caddy_https",
+    guest_ip: "0.0.0.0",
+    host_ip: "127.0.0.1"
+
   # Share an additional folder to the guest VM.
   config.vm.synced_folder ".", "/vagrant"
 
@@ -24,7 +34,7 @@ Vagrant.configure("2") do |config|
     vb.gui = false
   
     # Customize the amount of memory on the VM
-    vb.memory = "1024"
+    vb.memory = "2048"
 
     # Customize the name that appears in the VirtualBox GUI
     vb.name = "devops-for-programmers-project-lvl1"

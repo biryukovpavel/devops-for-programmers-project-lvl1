@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile.production
-      cache_from:
-        - biryukovpyu/devops-for-programmers-project-lvl1
     image: biryukovpyu/devops-for-programmers-project-lvl1
     command: ["npm", "test"]
     mem_limit: 768M

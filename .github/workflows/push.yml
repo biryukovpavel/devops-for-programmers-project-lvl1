@@ -34,6 +34,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
+      - name: Run test
+        run: docker image ls
+
       - name: Build application
         uses: docker/build-push-action@v2
         with:
@@ -49,15 +52,6 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
-
-      - name: Run test
-        run: docker image ls
-
-      - name: Run test
-        run: docker-compose images
-
-      - name: Run test
-        run: docker run biryukovpyu/devops-for-programmers-project-lvl1 npm test
 
       - name: Run test
         run: make compose-test

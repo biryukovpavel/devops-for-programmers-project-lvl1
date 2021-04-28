@@ -32,10 +32,12 @@ jobs:
           context: .
           file: Dockerfile.production
           push: false
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
           tags: ${{ env.APP_IMAGE_NAME }}:latest
 
       - name: Run test
-        run: DOCKER_BUILDKIT=1 COMPOSE_DOCKER_CLI_BUILD=1 docker-compose -f docker-compose.yml up --abort-on-container-exit
+        run: docker-compose -f docker-compose.yml up --abort-on-container-exit --build-arg BUILDKIT_INLINE_CACHE=1
 
       - name: Login to DockerHub
         uses: docker/login-action@v1

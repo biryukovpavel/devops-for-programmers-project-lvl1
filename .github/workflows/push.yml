@@ -40,6 +40,7 @@ jobs:
           context: .
           file: Dockerfile.production
           push: false
+          load: true
           tags: ${{ env.APP_IMAGE_NAME }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
@@ -51,6 +52,9 @@ jobs:
 
       - name: Run test
         run: docker image ls
+
+      - name: Run test
+        run: docker-compose images
 
       - name: Run test
         run: docker run biryukovpyu/devops-for-programmers-project-lvl1 npm test

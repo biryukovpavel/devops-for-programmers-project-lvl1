@@ -10,7 +10,10 @@ on:
   workflow_dispatch:
 
 env:
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
   APP_IMAGE_NAME: biryukovpyu/devops-for-programmers-project-lvl1
+
 
 jobs:
   build:

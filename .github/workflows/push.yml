@@ -43,7 +43,7 @@ jobs:
           context: .
           file: Dockerfile.production
           push: false
-          output: type=docker
+          outputs: type=docker
           tags: ${{ env.APP_IMAGE_NAME }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new

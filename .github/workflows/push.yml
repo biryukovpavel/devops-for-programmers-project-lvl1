@@ -60,7 +60,7 @@ jobs:
         run: docker run biryukovpyu/devops-for-programmers-project-lvl1 npm test
 
       - name: Run test
-        run: make composer-test
+        run: make compose-test
 
       - name: Login to DockerHub
         uses: docker/login-action@v1

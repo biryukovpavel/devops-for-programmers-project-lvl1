@@ -10,8 +10,6 @@ on:
   workflow_dispatch:
 
 env:
-  DOCKER_BUILDKIT: 1
-  COMPOSE_DOCKER_CLI_BUILD: 1
   APP_IMAGE_NAME: biryukovpyu/devops-for-programmers-project-lvl1
 
 
@@ -43,7 +41,7 @@ jobs:
           context: .
           file: Dockerfile.production
           push: false
-          outputs: type=docker
+          load: true
           tags: ${{ env.APP_IMAGE_NAME }}:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
@@ -62,10 +60,11 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # - name: Push image
-      #   uses: docker/build-push-action@v2
-      #   with:
-      #     context: .
-      #     file: Dockerfile.production
-      #     push: true
-      #     tags: ${{ env.APP_IMAGE_NAME }}:latest
+      - name: Push image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.production
+          push: true
+          tags: ${{ env.APP_IMAGE_NAME }}:latest
+          cache-from: type=local,src=/tmp/.buildx-cache

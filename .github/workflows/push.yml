@@ -32,9 +32,6 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-buildx-
 
-      - name: Run test
-        run: docker image ls
-
       - name: Build application
         uses: docker/build-push-action@v2
         with:

@@ -50,7 +50,10 @@ jobs:
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
 
       - name: Run test
-        run: make compose-test
+        run: docker image ls
+
+      - name: Run test
+        run: docker-compose images
 
       - name: Login to DockerHub
         uses: docker/login-action@v1
